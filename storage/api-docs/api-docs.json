@@ -1,0 +1,263 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "This is the API documentation for our application.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/articles": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get articles",
+                "operationId": "11aa4cc6561a7b94c56d1201d62513ee",
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of the article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "description": "The ID of the article",
+                                                "type": "integer"
+                                            },
+                                            "author_id": {
+                                                "description": "The ID of the author",
+                                                "type": "integer"
+                                            },
+                                            "translations": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "locale": {
+                                                            "description": "Language locale for the translation",
+                                                            "type": "string"
+                                                        },
+                                                        "title": {
+                                                            "description": "Title of the article",
+                                                            "type": "string"
+                                                        },
+                                                        "content": {
+                                                            "description": "Content of the article",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Create a new article",
+                "operationId": "e328bed23caf889ad982ad3f1180bccb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "author_id",
+                                    "translations"
+                                ],
+                                "properties": {
+                                    "author_id": {
+                                        "description": "The ID of the author",
+                                        "type": "integer"
+                                    },
+                                    "translations": {
+                                        "type": "array",
+                                        "items": {
+                                            "required": [
+                                                "lang",
+                                                "title",
+                                                "content"
+                                            ],
+                                            "properties": {
+                                                "lang": {
+                                                    "description": "Language locale for the translation",
+                                                    "type": "string"
+                                                },
+                                                "title": {
+                                                    "description": "Title of the article",
+                                                    "type": "string"
+                                                },
+                                                "content": {
+                                                    "description": "Content of the article",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Article created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "description": "Error message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/articles/{id}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get an article by ID",
+                "operationId": "b3e529eab04efb5d305b07e2e58d9869",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the article to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieval of the article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "The ID of the article",
+                                            "type": "integer"
+                                        },
+                                        "author_id": {
+                                            "description": "The ID of the author",
+                                            "type": "integer"
+                                        },
+                                        "translations": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "lang": {
+                                                        "description": "Language locale for the translation",
+                                                        "type": "string"
+                                                    },
+                                                    "title": {
+                                                        "description": "Title of the article",
+                                                        "type": "string"
+                                                    },
+                                                    "content": {
+                                                        "description": "Content of the article",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Delete an article",
+                "operationId": "97f34592611a1dd53a086865e29706c9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the article to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Article not found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Articles",
+            "description": "Articles"
+        }
+    ]
+}
